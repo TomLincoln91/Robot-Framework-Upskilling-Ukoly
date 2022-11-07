@@ -56,13 +56,11 @@ Create new private repository
     input text  id:repository_name      ${rep_name}[0]
     click element   id:repository_visibility_private
     scroll element into view  //button[@class='btn-primary btn']
-    # Sleep   0.5
     click element  //*[@id="new_repository"]/div[5]/button
 Verify that created repository is in list of repositories
     wait until element is visible  //a[.='${github_acc}[0]']
     click element  //details[@class='details-overlay details-reset js-feature-preview-indicator-container']/summary[@class='Header-link']
     wait until element is visible  //a[.='Your repositories']
-    # Sleep   0.5
     click element  //a[.='Your repositories']
     Wait until element is visible   //*[@id="your-repos-filter"]
     input text  //*[@id="your-repos-filter"]      ${rep_name}[0]
@@ -71,7 +69,6 @@ Verify that created repository is in list of repositories
 Verify that created repository is not visible when not logged in
     click element  //details[@class='details-overlay details-reset js-feature-preview-indicator-container']/summary[@class='Header-link']
     wait until element is visible  //*[contains(text(),'Sign out')]
-    # Sleep   0.5
     click element  //*[contains(text(),'Sign out')]
     Go To       https://github.com/${github_acc}[0]?tab=repositories
     input text  //*[@id="your-repos-filter"]      ${rep_name}[0]
@@ -103,11 +100,9 @@ Change repository from previous test to public
 Verify that the repository is visible when not logged in
     click element  //details[@class='details-overlay details-reset js-feature-preview-indicator-container']/summary[@class='Header-link']
     wait until element is visible  //*[contains(text(),'Sign out')]
-    # Sleep   0.5
     click element  //*[contains(text(),'Sign out')]
     Go To       https://github.com/${github_acc}[0]?tab=repositories
     input text  //*[@id="your-repos-filter"]      ${rep_name}[0]
-    # Sleep    0.5
     FOR     ${i}    IN RANGE     6
         Press Keys    //*[@id="your-repos-filter"]    ENTER
     END
