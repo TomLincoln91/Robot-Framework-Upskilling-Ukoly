@@ -30,3 +30,10 @@ GitHub
     Delete the repository
     Verify that the repository is deleted
 
+Using custom RF library to validate contents of a file
+    [Tags]  Task4
+    Task4
+
+Test script template, that uses data file as its configuration
+    [Tags]  Task5
+    Task5

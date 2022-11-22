@@ -3,6 +3,8 @@ Library     Collections
 Library     String
 Library     SeleniumLibrary
 Library     BuiltIn
+Library     OperatingSystem
+Library     RF
 Resource    variables.robot
 Resource    credentials.robot
 
@@ -134,3 +136,31 @@ Verify that the repository is deleted
     Wait until element is visible    ${num_of_reps} 
     ${num_of_reps}    Get Text        ${num_of_reps}    
     Should Be True    ${num_of_reps} == 0
+
+
+Task4
+    ${test}=    get csv rows    ${CSV_LOCATION}
+    ${EXPECTED_LINES_INTEGER}   Convert to integer  ${EXPECTED_LINES}
+    Should Be Equal    ${test}    ${EXPECTED_LINES_INTEGER}
+
+Task5
+    ${load_json}=    Get File    @{json}
+        ${JSON}=  Evaluate  json.loads('''${load_json}''')  json
+        Log     ${JSON["test_type"]}
+        ${input_type}=  Set Variable     ${JSON["test_type"]}
+        Log     ${JSON["input"]}
+        ${input_list}=  Set Variable     ${JSON["input"]}
+
+    IF     "${input_type}" == "asc"
+        ${input_list_sorted}     Copy list       ${input_list}
+        Sort List       ${input_list_sorted}
+        Lists should be equal    ${input_list}   ${input_list_sorted}
+    ELSE IF    "${input_type}" == "desc"
+        ${input_list_sorted}     Copy list       ${input_list}
+        Sort List       ${input_list_sorted}
+        Reverse List    ${input_list_sorted}
+        Log             ${input_list_sorted}
+        Lists should be equal    ${input_list}   ${input_list_sorted}
+    ELSE
+        Log    Bad JSON file
+    END
