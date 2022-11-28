@@ -1,5 +1,5 @@
 *** Settings ***
-Resource  credentials.robot
+Resource    credentials.robot
 
 *** Variables ***
 
@@ -12,11 +12,11 @@ Resource  credentials.robot
 @{task2fail}        malina  seno  list  mist
 
 #Task2
-@{login_field}       //*[@id="login_field"]
-@{rep_name}    RobotFrameworkTestName2
-@{rep_list}     //*[@id='user-repositories-list']/ul/li/div[1]/div[1]/h3/a
-@{github_acc}     TomLincoln91
-@{num_of_reps}  //*[@id="user-repositories-list"]/div[1]/div[1]/strong[1]
+${login_field}       //*[@id="login_field"]
+${rep_name}    RobotFrameworkTestName2
+${rep_list}     //*[@id='user-repositories-list']/ul/li/div[1]/div[1]/h3/a
+${github_acc}     TomLincoln91
+${num_of_reps}  //*[@id="user-repositories-list"]/div[1]/div[1]/strong[1]
 
 #Task4
 ${test}=                 0

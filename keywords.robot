@@ -12,7 +12,7 @@ Resource    credentials.robot
 *** Keywords ***
 
 Check if list is in ascending order
-    [Tags]    Task1
+    [Tags]  Task1
             ${length}   Get Length      ${task1pass1}
             ${length}  Evaluate     ${length}-1
     FOR     ${index}   IN RANGE    0     ${length}
@@ -40,10 +40,6 @@ Open GitHub page
     Set Screenshot directory   Screenshots
     Open Browser  https://github.com/login   browser=chrome
 Login to GitHub account
-#   wait until element is visible   //div[@class='d-lg-flex flex-items-center px-3 px-lg-0 mb-3 mb-lg-0 text-center text-lg-left']/a[contains(.,'Sign up')]
-#   click element   //div[@class='d-lg-flex flex-items-center px-3 px-lg-0 mb-3 mb-lg-0 text-center text-lg-left']/a[contains(.,'Sign up')]
-#   wait until element is visible  //a[contains(.,'Sign in →')]
-#   click element  //a[contains(.,'Sign in →')]
     wait until element is visible  ${login_field}
     click element   ${login_field}
     input text    ${login_field}    ${Email}
