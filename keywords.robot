@@ -11,27 +11,31 @@ Resource    credentials.robot
 
 *** Keywords ***
 
+#This test checks if values in given list are in ascending order. Test fails if not.
 Check if list is in ascending order
+    [Arguments]     ${listvalues}
     [Tags]  Task1
-            ${length}   Get Length      ${task1pass1}
+            ${length}   Get Length      ${listvalues}
             ${length}  Evaluate     ${length}-1
     FOR     ${index}   IN RANGE    0     ${length}
-            Log    ${task1pass1}[${index}]
+            Log    ${listvalues}[${index}]
             ${indexHigh}    Evaluate    ${index}+1
-            Should Be True  ${task1pass1}[${index}]<${task1pass1}[${indexHigh}]
+            Should Be True  ${listvalues}[${index}]<${listvalues}[${indexHigh}]
     END
 
 Check if list is in ascending order 2
-    ${task1pass1sorted}     Copy list       ${task1pass1}
+    [Arguments]     ${listvalues}
+    ${task1pass1sorted}     Copy list       ${listvalues}
     Sort List       ${task1pass1sorted}
-    Lists should be equal    ${task1pass1}   ${task1pass1sorted}
+    Lists should be equal    ${listvalues}  ${task1pass1sorted}
 
 Check if strings in list are the same length
-    ${FirstWord}   Get From List    ${task2pass}   0
+    [Arguments]     ${listvalues}
+    ${FirstWord}   Get From List    ${listvalues}   0
     ${expectedLength}   Get Length  ${FirstWord}
-    ${ListLength}      Get Length      ${task2pass}
+    ${ListLength}      Get Length      ${listvalues}
         FOR  ${index}    IN RANGE     0    ${ListLength}
-             ${ListElement}   Get From List    ${task2pass}   ${index}
+             ${ListElement}   Get From List    ${listvalues}   ${index}
              ${ElementLength}    Get Length  ${ListElement}
              Should Be True   ${ElementLength}==${expectedLength}
         END

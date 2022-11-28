@@ -1,22 +1,18 @@
 *** Settings ***
-Library     String
-Library     SeleniumLibrary
-Library     Collections
-Resource    variables.robot
 Resource    keywords.robot
 
 *** Test Cases ***
 Check if list is in ascending order
     [Tags]  Task1
-        Check if list is in ascending order
+        Check if list is in ascending order     ${task1pass1}
 
 Check if list is in ascending order 2
-    [Tags]  Task1copy
-        Check if list is in ascending order 2
+    [Tags]  Task1Alternative
+        Check if list is in ascending order 2   ${task1pass1}
 
 Check if strings in list are the same length
     [Tags]  Task2
-        Check if strings in list are the same length
+        Check if strings in list are the same length    ${task2pass}
 
 GitHub
     [Tags]  Task3
