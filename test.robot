@@ -21,7 +21,7 @@ GitHub
     Create new private repository
     Verify that created repository is in list of repositories
     Verify that created repository is not visible when not logged in
-    Change repository from previous test to public
+    Change repository from private to public
     Verify that the repository is visible when not logged in
     Delete the repository
     Verify that the repository is deleted

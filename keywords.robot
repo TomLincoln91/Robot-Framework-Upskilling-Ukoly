@@ -47,94 +47,87 @@ Login to GitHub account
     wait until element is visible  ${login_field}
     click element   ${login_field}
     input text    ${login_field}    ${Email}
-    click element  id:password
-    input password  id:password  ${password}
-    click element  //input[@name='commit']
+    input password  ${password_field}  ${password}
+    click element  ${login_button}
 Create new private repository
-    wait until element is visible  //loading-context[@class='loading-context position-relative height-full']//a[contains(.,'New')]
-    click element  //loading-context[@class='loading-context position-relative height-full']//a[contains(.,'New')]
+    wait until element is visible  ${new_repo}
+    click element  ${new_repo}
     wait until element is visible  id:repository_name
-    click element  id:repository_name
-    input text  id:repository_name      ${rep_name}[0]
+    input text  id:repository_name      ${rep_name}
     click element   id:repository_visibility_private
     scroll element into view  //button[@class='btn-primary btn']
-    click element  //*[@id="new_repository"]/div[5]/button
+    Wait Until Element Is Enabled    ${new_repo_button}
+    click element  ${new_repo_button}
 Verify that created repository is in list of repositories
-    wait until element is visible  //a[.='${github_acc}[0]']
-    click element  //details[@class='details-overlay details-reset js-feature-preview-indicator-container']/summary[@class='Header-link']
+    wait until element is visible  //a[.='${github_acc}']
+    click element  ${navbar_dropdown}
     wait until element is visible  //a[.='Your repositories']
     click element  //a[.='Your repositories']
     Wait until element is visible   //*[@id="your-repos-filter"]
-    input text  //*[@id="your-repos-filter"]      ${rep_name}[0]
+    input text  //*[@id="your-repos-filter"]      ${rep_name}
     ${rep_list}     Get Text    ${rep_list}
-    Should Be Equal    ${rep_list}  ${rep_name}[0]  
+    Should Be Equal    ${rep_list}  ${rep_name}
 Verify that created repository is not visible when not logged in
-    click element  //details[@class='details-overlay details-reset js-feature-preview-indicator-container']/summary[@class='Header-link']
-    wait until element is visible  //*[contains(text(),'Sign out')]
-    click element  //*[contains(text(),'Sign out')]
-    Go To       https://github.com/${github_acc}[0]?tab=repositories
-    input text  //*[@id="your-repos-filter"]      ${rep_name}[0]
-    Wait until element is visible    ${num_of_reps}   
-    ${num_of_reps}    Get Text        ${num_of_reps}    
+    click element  ${navbar_dropdown}
+    wait until element is visible  ${sign_out_button}
+    click element  ${sign_out_button}
+    Go To       https://github.com/${github_acc}?tab=repositories
+    input text  //*[@id="your-repos-filter"]      ${rep_name}
+    Wait until element is visible    ${num_of_reps}
+    ${num_of_reps}    Get Text        ${num_of_reps}
     Should Be True    ${num_of_reps} == 0
-Change repository from previous test to public
-    click element  //*[contains(text(),'Sign in')]
+Change repository from private to public
+    click element     ${sign_in_button}
     wait until element is visible  ${login_field}
-    click element   ${login_field}
     input text    ${login_field}    ${Email}
-    click element  id:password
-    input password  id:password  ${password}
-    click element  //input[@name='commit']
+    input password  ${password_field}  ${password}
+    click element  ${login_button}
     Wait until element is visible   //*[@id="your-repos-filter"]
-    input text  //*[@id="your-repos-filter"]      ${rep_name}[0]
-    click element     //*[@id="user-repositories-list"]/ul/li/div[1]/div[1]/h3/a
+    input text  //*[@id="your-repos-filter"]      ${rep_name}
+    click element     ${first_searched_repo}
     wait until element is visible     //*[@id="settings-tab"]
     click element     //*[@id="settings-tab"]
-    Wait until element is visible     //*[@id="options_bucket"]/div[9]/ul/li[1]/div[1]/details/summary
-    click element     //*[@id="options_bucket"]/div[9]/ul/li[1]/div[1]/details/summary
-    Click element     //*[@class="dropdown-item js-repo-change-visibility-button btn-link"]
-    Wait until element is visible     //*[@id="repo-visibility-proceed-button-public"]
-    click element     //*[@id="repo-visibility-proceed-button-public"]
-    wait until element is visible     //*[@id="repo-visibility-proceed-button-public"]/span/span
-    click element     //*[@id="repo-visibility-proceed-button-public"]/span/span
-    wait until element is visible     //*[@id="repo-visibility-proceed-button-public"]/span/span
-    click element     //*[@id="repo-visibility-proceed-button-public"]/span/span
+    Wait until element is visible     ${change_visibility_button}
+    click element     ${change_visibility_button}
+    Click element     ${to_public_button}
+    Wait until element is visible     ${verify_publication}
+    click element    ${verify_publication}
+    wait until element is visible     ${second_verify_publication}
+    click element    ${second_verify_publication}
 Verify that the repository is visible when not logged in
-    click element  //details[@class='details-overlay details-reset js-feature-preview-indicator-container']/summary[@class='Header-link']
-    wait until element is visible  //*[contains(text(),'Sign out')]
-    click element  //*[contains(text(),'Sign out')]
-    Go To       https://github.com/${github_acc}[0]?tab=repositories
-    input text  //*[@id="your-repos-filter"]      ${rep_name}[0]
+    click element  ${navbar_dropdown}
+    wait until element is visible  ${sign_out_button}
+    click element  ${sign_out_button}
+    Go To       https://github.com/${github_acc}?tab=repositories
+    input text  //*[@id="your-repos-filter"]      ${rep_name}
     FOR     ${i}    IN RANGE     6
         Press Keys    //*[@id="your-repos-filter"]    ENTER
     END
-    Wait until element is visible    ${num_of_reps} 
-    ${num_of_reps}    Get Text        ${num_of_reps}    
+    Wait until element is visible    ${num_of_reps}
+    ${num_of_reps}    Get Text        ${num_of_reps}
     Should Be True    ${num_of_reps} == 1
 Delete the repository
-    click element  //*[contains(text(),'Sign in')]
+    click element  ${sign_in_button}
     wait until element is visible  ${login_field}
-    click element   ${login_field}
     input text    ${login_field}    ${Email}
-    click element  id:password
-    input password  id:password  ${password}
-    click element  //input[@name='commit']
+    input password  ${password_field}   ${password}
+    click element  ${login_button}
     Wait until element is visible   //*[@id="your-repos-filter"]
-    input text  //*[@id="your-repos-filter"]      ${rep_name}[0]
-    click element     //*[@id="user-repositories-list"]/ul/li/div[1]/div[1]/h3/a
+    input text  //*[@id="your-repos-filter"]      ${rep_name}
+    click element     ${first_searched_repo}
     wait until element is visible     //*[@id="settings-tab"]
     click element     //*[@id="settings-tab"]
-    Wait until element is visible     //*[@id="options_bucket"]/div[9]/ul/li[4]/details/summary
-    Click element     //*[@id="options_bucket"]/div[9]/ul/li[4]/details/summary
-    wait until element is visible     //*[@id="options_bucket"]/div[9]/ul/li[4]/details/details-dialog/div[3]/form/p/input
-    Input Text     //*[@id="options_bucket"]/div[9]/ul/li[4]/details/details-dialog/div[3]/form/p/input    ${github_acc}[0]/${rep_name}[0]
-    Wait until element is visible     //*[@id="options_bucket"]/div[9]/ul/li[4]/details/details-dialog/div[3]/form/button/span[1]
-    Click Element     //*[@id="options_bucket"]/div[9]/ul/li[4]/details/details-dialog/div[3]/form/button/span[1]
+    Wait until element is visible     ${delete_repo_button}
+    Click element     ${delete_repo_button}
+    wait until element is visible     ${verify_deletion_form}
+    Input Text    ${verify_deletion_form}    ${github_acc}/${rep_name}
+    Wait until element is visible     ${verify_deletion_button}
+    Click Element     ${verify_deletion_button}
 Verify that the repository is deleted
     Wait until element is visible   //*[@id="your-repos-filter"]
-    input text  //*[@id="your-repos-filter"]      ${rep_name}[0]
-    Wait until element is visible    ${num_of_reps} 
-    ${num_of_reps}    Get Text        ${num_of_reps}    
+    input text  //*[@id="your-repos-filter"]      ${rep_name}
+    Wait until element is visible    ${num_of_reps}
+    ${num_of_reps}    Get Text        ${num_of_reps}
     Should Be True    ${num_of_reps} == 0
 
 
@@ -144,12 +137,12 @@ Task4
     Should Be Equal    ${test}    ${EXPECTED_LINES_INTEGER}
 
 Task5
-    ${load_json}=    Get File    @{json}
-        ${JSON}=  Evaluate  json.loads('''${load_json}''')  json
-        Log     ${JSON["test_type"]}
-        ${input_type}=  Set Variable     ${JSON["test_type"]}
-        Log     ${JSON["input"]}
-        ${input_list}=  Set Variable     ${JSON["input"]}
+    ${load_json}=    Get File    ${json}
+        ${json}=  Evaluate  json.loads('''${load_json}''')  json
+        Log     ${json["test_type"]}
+        ${input_type}=  Set Variable     ${json["test_type"]}
+        Log     ${json["input"]}
+        ${input_list}=  Set Variable     ${json["input"]}
 
     IF     "${input_type}" == "asc"
         ${input_list_sorted}     Copy list       ${input_list}
